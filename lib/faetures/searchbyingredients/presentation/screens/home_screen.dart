@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe/common/presentations/components/screen_title_component.dart';
 import 'package:recipe/common/presentations/components/subsection_component.dart';
+import 'package:recipe/faetures/searchbyingredients/presentation/widgets/categories_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,7 +36,15 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            const SubSection(heading: 'Categories')
+            const SubSection(heading: 'Categories'),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: CategoriesWidget(),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            const SubSection(heading: 'Recipes...')
           ],
         ),
       ),
