@@ -1,10 +1,9 @@
 part of 'searchbyingredients_bloc.dart';
 
-abstract class SearchbyingredientsEvent extends Equatable {
-  const SearchbyingredientsEvent();
-
+@immutable
+abstract class RecipeEvent extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class GetRecipeFromIngredients extends SearchbyingredientsEvent {}
+class RecipeRequestedEvent extends RecipeEvent {}

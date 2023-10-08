@@ -10,6 +10,7 @@ class FoodTitle extends StatelessWidget {
       foodTitle,
       style: const TextStyle(
           fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+      maxLines: 2,
     );
   }
 }

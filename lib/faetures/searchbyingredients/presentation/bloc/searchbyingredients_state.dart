@@ -1,19 +1,27 @@
 part of 'searchbyingredients_bloc.dart';
 
-abstract class SearchbyingredientsState extends Equatable {
-  const SearchbyingredientsState();
-
+@immutable
+abstract class RecipeState extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class SearchbyingredientsInitial extends SearchbyingredientsState {}
+class RecipeInitial extends RecipeState {}
 
-class SearchbyingredientsLoading extends SearchbyingredientsState {}
+class RecipeLoading extends RecipeState {}
 
-class SearchbyingredientsLoaded extends SearchbyingredientsState {}
+class RecipeLoaded extends RecipeState {
+  final List<RecipeEntitiy> recipe;
+  RecipeLoaded({required this.recipe});
 
-class SearchbyingredientsError extends SearchbyingredientsState {
+  @override
+  List<Object?> get props => [recipe];
+}
+
+class RecipeError extends RecipeState {
   final String message;
-  const SearchbyingredientsError({required this.message});
+  RecipeError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 }

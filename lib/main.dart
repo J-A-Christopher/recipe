@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:recipe/core/utils/app_global_bloc_observer.dart';
+import 'package:recipe/faetures/searchbyingredients/presentation/bloc/searchbyingredients_bloc.dart';
 import 'package:recipe/faetures/searchbyingredients/presentation/screens/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = AppGlobalBlocObserver();
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyWidget());
 }
 
@@ -10,9 +18,12 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: BlocProvider(
+        create: (_) => RecipeBloc(),
+        child: const HomeScreen(),
+      ),
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recipe/common/presentations/components/screen_title_component.dart';
 import 'package:recipe/common/presentations/components/subsection_component.dart';
+import 'package:recipe/faetures/searchbyingredients/presentation/bloc/searchbyingredients_bloc.dart';
 import 'package:recipe/faetures/searchbyingredients/presentation/widgets/categories_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe/faetures/searchbyingredients/presentation/widgets/recipe_sample.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +12,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: const Color(0xfffafafa),
       body: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
         child: ListView(
@@ -29,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   suffixIcon: GestureDetector(
                       onTap: () {
-                        //print('Hurra!!');
+                        context.read<RecipeBloc>().add(RecipeRequestedEvent());
                       },
                       child: const Icon(Icons.tune))),
             ),
@@ -44,7 +46,9 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            const SubSection(heading: 'Recipes...')
+            const SubSection(heading: 'Recipes...'),
+            const RecipeSample(),
+            const SubSection(heading: 'Random Recipes')
           ],
         ),
       ),
