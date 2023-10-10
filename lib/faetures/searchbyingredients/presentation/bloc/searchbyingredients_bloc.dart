@@ -18,7 +18,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     final RecipeUseCases recipeUseCases = RecipeUseCases();
     on<RecipeRequestedEvent>((event, emit) async {
       emit(RecipeLoading());
-      final failureOrRecipe = await recipeUseCases.getRecipe();
+      final failureOrRecipe =
+          await recipeUseCases.getRecipe(ingredients: event.ingredients);
       failureOrRecipe.fold(
           (failure) =>
               emit(RecipeError(message: _mapFailureToMessage(failure))),

@@ -9,9 +9,11 @@ class RecipeRepoImpl implements RecipeRepo {
   final RecipeRemoteDataSource recipeRemoteDataSource =
       RecipeRemoteDataSourceImpl();
   @override
-  Future<Either<Failure, List<RecipeEntitiy>>> getAdviceFromDataSource() async {
+  Future<Either<Failure, List<RecipeEntitiy>>> getAdviceFromDataSource(
+      {required List<String> ingredients}) async {
     try {
-      final result = await recipeRemoteDataSource.getRecipe();
+      final result =
+          await recipeRemoteDataSource.getRecipe(ingredients: ingredients);
 
       return right(result);
     } on ServerException catch (_) {
