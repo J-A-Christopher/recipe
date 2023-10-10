@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe/common/presentations/components/screen_title_component.dart';
 import 'package:recipe/common/presentations/components/subsection_component.dart';
+import 'package:recipe/faetures/randomrecipes/presentation/widgets/random_recipes_widget.dart';
 import 'package:recipe/faetures/searchbyingredients/presentation/bloc/searchbyingredients_bloc.dart';
 import 'package:recipe/faetures/searchbyingredients/presentation/widgets/categories_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,8 @@ class HomeScreen extends StatelessWidget {
             ),
             const SubSection(heading: 'Recipes...'),
             const RecipeSample(),
-            const SubSection(heading: 'Random Recipes')
+            const SubSection(heading: 'Random Recipes'),
+            const RandomRecipesWidget()
           ],
         ),
       ),

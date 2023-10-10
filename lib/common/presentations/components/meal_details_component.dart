@@ -8,7 +8,11 @@ class MealDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       details,
-      style: const TextStyle(color: Colors.grey, fontSize: 15),
+      style: const TextStyle(
+        color: Colors.grey,
+        fontSize: 15,
+      ),
+      maxLines: 2,
     );
   }
 }
