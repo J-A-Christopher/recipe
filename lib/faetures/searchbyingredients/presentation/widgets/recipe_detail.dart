@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe/common/presentations/components/food_title_component.dart';
 import 'package:recipe/common/presentations/components/subsection_component.dart';
+import 'package:recipe/faetures/localstoragefeature/Presentation/bloc/localstorage_bloc.dart';
+import 'package:recipe/faetures/localstoragefeature/Presentation/screens/saved_recipes.dart';
 import 'package:recipe/faetures/searchbyingredients/presentation/bloc/searchbyingredients_bloc.dart';
 
 class RecipeDetails extends StatelessWidget {
@@ -13,22 +15,38 @@ class RecipeDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            title: Text(
-              '$rTitle',
-              style: const TextStyle(color: Colors.black),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          title: Text(
+            '$rTitle',
+            style: const TextStyle(color: Colors.black),
+          ),
+          elevation: 0,
+          leading: GestureDetector(
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
             ),
-            elevation: 0,
-            leading: GestureDetector(
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            )),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                            create: (context) => LocalstorageBloc(),
+                            child: const SavdRecipes(),
+                          )));
+                },
+                icon: const Icon(
+                  Icons.save,
+                  size: 30,
+                  color: Colors.black,
+                ))
+          ],
+        ),
         body: BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
           if (state is RecipeLoading) {
             return const Center(
@@ -62,9 +80,7 @@ class RecipeDetails extends StatelessWidget {
                                 Expanded(
                                     flex: 3,
                                     child: FoodTitle(
-                                        foodTitle: '${clickedItem.title}')
-                                    //Text('${clickedItem.title}'),
-                                    ),
+                                        foodTitle: '${clickedItem.title}')),
                                 Expanded(
                                   flex: 1,
                                   child: Row(
@@ -126,7 +142,10 @@ class RecipeDetails extends StatelessWidget {
                                 );
                               }),
                             ),
-                            const FoodTitle(foodTitle: 'Unused Ingredients'),
+                            clickedItem.unusedIngredients!.isEmpty
+                                ? const Text('')
+                                : const FoodTitle(
+                                    foodTitle: 'Unused Ingredients'),
                             Column(
                               children: List.generate(
                                   clickedItem.unusedIngredients!.length,

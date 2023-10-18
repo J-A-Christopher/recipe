@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe/common/presentations/components/food_title_component.dart';
 import 'package:recipe/common/presentations/components/meal_details_component.dart';
 import 'package:recipe/faetures/randomrecipes/presentation/bloc/random_recipes_bloc.dart';
+import 'package:recipe/faetures/randomrecipes/presentation/widgets/random_recipe_details.dart';
 
 class RandomScrollableWidget extends StatelessWidget {
   const RandomScrollableWidget({super.key});
@@ -26,12 +27,28 @@ class RandomScrollableWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                '${recipe[index].image}',
-                                fit: BoxFit.cover,
-                                height: mediaQuery.height * 0.28,
+                            GestureDetector(
+                              onTap: () {
+                                final clickedRandomRecipe = recipe[index].id;
+                                final clickedRandomRecipeTitle =
+                                    recipe[index].title;
+                                print(clickedRandomRecipe);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => BlocProvider.value(
+                                          value: BlocProvider.of<
+                                              RandomRecipesBloc>(context),
+                                          child: RandomRecipeDetails(
+                                              id: clickedRandomRecipe,
+                                              title: clickedRandomRecipeTitle),
+                                        )));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  '${recipe[index].image}',
+                                  fit: BoxFit.cover,
+                                  height: mediaQuery.height * 0.28,
+                                ),
                               ),
                             ),
                             Padding(
