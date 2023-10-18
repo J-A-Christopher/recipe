@@ -7,7 +7,7 @@ import 'package:recipe/faetures/searchbyingredients/data/models/recipefromingred
 import 'package:http/http.dart' as http;
 
 abstract class RecipeRemoteDataSource {
-  Future<List<IngredientRecipe>> getRecipe();
+  Future<List<IngredientRecipe>> getRecipe({required List<String> ingredients});
 }
 
 class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
@@ -15,9 +15,10 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
   final apiKey = dotenv.env['APIKEY'];
   //final key = Secret.API_KEY;
   @override
-  Future<List<IngredientRecipe>> getRecipe() async {
+  Future<List<IngredientRecipe>> getRecipe(
+      {required List<String> ingredients}) async {
     final response = await client.get(Uri.parse(
-        'https://api.spoonacular.com/recipes/findByIngredients?ingredients=apple, +ugali, +carrot&number=10&apiKey=$apiKey'));
+        'https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients[0]}, +${ingredients[1]}, +${ingredients[2]}&number=30&apiKey=$apiKey'));
     print(response.statusCode);
 
     if (response.statusCode != 200) {

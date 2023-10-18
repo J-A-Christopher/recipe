@@ -6,7 +6,8 @@ import 'package:dartz/dartz.dart';
 
 class RecipeUseCases {
   final recipeRepo = RecipeRepoImpl();
-  Future<Either<Failure, List<RecipeEntitiy>>> getRecipe() async {
-    return recipeRepo.getAdviceFromDataSource();
+  Future<Either<Failure, List<RecipeEntitiy>>> getRecipe(
+      {required List<String> ingredients}) async {
+    return recipeRepo.getAdviceFromDataSource(ingredients: ingredients);
   }
 }

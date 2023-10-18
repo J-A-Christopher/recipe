@@ -10,7 +10,16 @@ class RecipeSample extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(builder: (context, state) {
       if (state is RecipeInitial) {
-        return const Text('Search an ingredient to get a recipe');
+        return const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'Search an ingredient to get a recipe',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 20,
+            ),
+          ),
+        );
       }
       if (state is RecipeLoading) {
         return const Center(child: CircularProgressIndicator());
